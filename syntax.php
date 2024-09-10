@@ -114,6 +114,8 @@ class syntax_plugin_backlinks extends SyntaxPlugin
             if (!empty($backlinks) && !empty($filterNS)) {
                 if (stripos($filterNS, "!", 0) === 0) {
                     $filterNS = substr($filterNS, 1);
+                    if ($filterNS == '.') // Filter backlinks from subnamespaces
+                        $filterNS = cleanID(getID());
                     dbglog($filterNS, "backlinks: exluding all of namespace: $filterNS");
                     $backlinks = array_filter(
                         $backlinks,
